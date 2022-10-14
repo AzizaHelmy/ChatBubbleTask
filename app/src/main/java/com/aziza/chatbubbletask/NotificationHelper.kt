@@ -122,28 +122,28 @@ class NotificationHelper(private val context: Context) {
 
         val builder = Notification.Builder(context, CHANNEL_NEW_MESSAGES)
             // TODO 5: Set up a BubbleMetadata.
-            .setBubbleMetadata(
-                Notification.BubbleMetadata
-                    .Builder(
-                        PendingIntent.getActivity(
-                            context,
-                            REQUEST_BUBBLE,
-                            Intent(context, BubbleActivity::class.java)
-                                .setAction(Intent.ACTION_VIEW)
-                                .setData(contentUri),
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        ),
-                        icon
-                    )
-                    .setDesiredHeightResId(R.dimen.bubble_height)
-                    .apply {
-                        if (fromUser) {
-                            setAutoExpandBubble(true)
-                            setSuppressNotification(true)
-                        }
-                    }
-                    .build()
-            )
+//            .setBubbleMetadata(
+//                Notification.BubbleMetadata
+//                    .Builder(
+//                        PendingIntent.getActivity(
+//                            context,
+//                            REQUEST_BUBBLE,
+//                            Intent(context, BubbleActivity::class.java)
+//                                .setAction(Intent.ACTION_VIEW)
+//                                .setData(contentUri),
+//                            PendingIntent.FLAG_UPDATE_CURRENT
+//                        ),
+//                        icon
+//                    )
+//                    .setDesiredHeightResId(R.dimen.bubble_height)
+//                    .apply {
+//                        if (fromUser) {
+//                            setAutoExpandBubble(true)
+//                            setSuppressNotification(true)
+//                        }
+//                    }
+//                    .build()
+//            )
             // The user can turn off the bubble in system settings. In that case, this notification
             // is shown as a normal notification instead of a bubble. Make sure that this
             // notification works as a normal notification as well.
@@ -157,16 +157,16 @@ class NotificationHelper(private val context: Context) {
             .setShowWhen(true)
             // The content Intent is used when the user clicks on the "Open Content" icon button on
             // the expanded bubble, as well as when the fall-back notification is clicked.
-            .setContentIntent(
-                PendingIntent.getActivity(
-                    context,
-                    REQUEST_CONTENT,
-                    Intent(context, MainActivity::class.java)
-                        .setAction(Intent.ACTION_VIEW)
-                        .setData(contentUri),
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            )
+//            .setContentIntent(
+//                PendingIntent.getActivity(
+//                    context,
+//                    REQUEST_CONTENT,
+//                    Intent(context, MainActivity::class.java)
+//                        .setAction(Intent.ACTION_VIEW)
+//                        .setData(contentUri),
+//                    PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//            )
             // Direct Reply
 //            .addAction(
 //                Notification.Action
@@ -223,12 +223,12 @@ class NotificationHelper(private val context: Context) {
         notificationManager.cancel(id.toInt())
     }
 
-//    @RequiresApi(Build.VERSION_CODES.R)
-//    fun canBubble(contact: Contact): Boolean {
-//        val channel = notificationManager.getNotificationChannel(
-//            CHANNEL_NEW_MESSAGES,
-//            contact.shortcutId
-//        )
-//        return notificationManager.areBubblesAllowed() || channel?.canBubble() == true
-//    }
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun canBubble(contact: Contact): Boolean {
+        val channel = notificationManager.getNotificationChannel(
+            CHANNEL_NEW_MESSAGES,
+            contact.shortcutId
+        )
+        return notificationManager.areBubblesAllowed() || channel?.canBubble() == true
+    }
 }
