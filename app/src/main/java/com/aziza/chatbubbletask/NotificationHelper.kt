@@ -168,26 +168,26 @@ class NotificationHelper(private val context: Context) {
                 )
             )
             // Direct Reply
-            .addAction(
-                Notification.Action
-                    .Builder(
-                        Icon.createWithResource(context, R.drawable.ic_send),
-                        context.getString(R.string.label_reply),
-                        PendingIntent.getBroadcast(
-                            context,
-                            REQUEST_CONTENT,
-                            Intent(context, ReplyReceiver::class.java).setData(contentUri),
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                        )
-                    )
-                    .addRemoteInput(
-                        RemoteInput.Builder(ReplyReceiver.KEY_TEXT_REPLY)
-                            .setLabel(context.getString(R.string.hint_input))
-                            .build()
-                    )
-                    .setAllowGeneratedReplies(true)
-                    .build()
-            )
+//            .addAction(
+//                Notification.Action
+//                    .Builder(
+//                        Icon.createWithResource(context, R.drawable.ic_send),
+//                        context.getString(R.string.label_reply),
+//                        PendingIntent.getBroadcast(
+//                            context,
+//                            REQUEST_CONTENT,
+//                            Intent(context, ReplyReceiver::class.java).setData(contentUri),
+//                            PendingIntent.FLAG_UPDATE_CURRENT
+//                        )
+//                    )
+//                    .addRemoteInput(
+//                        RemoteInput.Builder(ReplyReceiver.KEY_TEXT_REPLY)
+//                            .setLabel(context.getString(R.string.hint_input))
+//                            .build()
+//                    )
+//                    .setAllowGeneratedReplies(true)
+//                    .build()
+//            )
             // TODO 1: Use MessagingStyle.
             .setStyle(
                 Notification.MessagingStyle(user)
@@ -223,12 +223,12 @@ class NotificationHelper(private val context: Context) {
         notificationManager.cancel(id.toInt())
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    fun canBubble(contact: Contact): Boolean {
-        val channel = notificationManager.getNotificationChannel(
-            CHANNEL_NEW_MESSAGES,
-            contact.shortcutId
-        )
-        return notificationManager.areBubblesAllowed() || channel?.canBubble() == true
-    }
+//    @RequiresApi(Build.VERSION_CODES.R)
+//    fun canBubble(contact: Contact): Boolean {
+//        val channel = notificationManager.getNotificationChannel(
+//            CHANNEL_NEW_MESSAGES,
+//            contact.shortcutId
+//        )
+//        return notificationManager.areBubblesAllowed() || channel?.canBubble() == true
+//    }
 }
