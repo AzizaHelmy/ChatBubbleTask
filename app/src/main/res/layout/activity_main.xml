@@ -1,56 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/chat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="dev.edmt.chatapp.MainActivity">
-
-    <ImageView
-        android:id="@+id/emoji_button"
-        android:padding="4dp"
-        android:src="@mipmap/smiley"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
-
-    <ImageView
-        android:id="@+id/submit_button"
-        android:padding="4dp"
-        android:src="@android:drawable/ic_menu_send"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
-
-
-    <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
-        android:id="@+id/emojicon_edit_text"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/emoji_button"
-        android:layout_toLeftOf="@+id/submit_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:emojiconSize="28sp"
-        />
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_of_message"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/emojicon_edit_text"
-        android:dividerHeight="16dp"
-        android:divider="@android:color/transparent"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/messages"
+        android:background="#D1C6C6"
+        style="?attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"
-        ></androidx.recyclerview.widget.RecyclerView>
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input_bar"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageButton
+            android:id="@+id/voice_call"
+            style="?attr/buttonBarNeutralButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_voice_call"
+            app:tint="?attr/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/input"
+            app:layout_constraintEnd_toStartOf="@id/input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_voice_call" />
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/hint_input"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            app:layout_constraintBottom_toTopOf="@id/photo"
+            app:layout_constraintEnd_toStartOf="@id/send"
+            app:layout_constraintStart_toEndOf="@id/voice_call"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:contentDescription="@string/description_photo"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/input"
+            app:layout_constraintTop_toBottomOf="@id/input"
+            tools:src="@drawable/ic_message"
+             />
+
+        <ImageButton
+            android:id="@+id/send"
+            style="?attr/buttonBarNeutralButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_send"
+            app:tint="?attr/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@id/input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/input"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_send" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
