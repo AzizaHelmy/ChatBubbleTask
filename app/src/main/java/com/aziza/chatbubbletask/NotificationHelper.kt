@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.WorkerThread
 import androidx.core.content.getSystemService
@@ -97,9 +98,7 @@ class NotificationHelper(private val context: Context) {
                             .build()
                     )
                     .build()
-            } else {
-                TODO("VERSION.SDK_INT < Q")
-            }
+            } 
         }
         if (importantContact != null) {
             shortcuts = shortcuts.sortedByDescending { it.id == importantContact.shortcutId }
@@ -115,6 +114,7 @@ class NotificationHelper(private val context: Context) {
     @WorkerThread
     fun showNotification(chat: Chat, fromUser: Boolean) {
         updateShortcuts(chat.contact)
+
         val icon = Icon.createWithAdaptiveBitmapContentUri(chat.contact.iconUri)
         val user = Person.Builder().setName(context.getString(R.string.sender_you)).build()
         val person = Person.Builder().setName(chat.contact.name).setIcon(icon).build()
@@ -131,7 +131,7 @@ class NotificationHelper(private val context: Context) {
                             Intent(context, BubbleActivity::class.java)
                                 .setAction(Intent.ACTION_VIEW)
                                 .setData(contentUri),
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                         ),
                         icon
                     )
