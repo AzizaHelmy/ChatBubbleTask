@@ -1,47 +1,31 @@
 package com.aziza.chatbubbletask
 
-import android.app.Notification
-import android.app.PendingIntent
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationCompat.BubbleMetadata
-import androidx.core.app.Person
-import androidx.core.net.toUri
 import com.aziza.chatbubbletask.databinding.ActivityMainBinding
-import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val CHANNEL_ID = "new_messages"
-    private val REQUEST_CONTENT = 1
-    private val REQUEST_BUBBLE = 2
+    private val NOTIFICATION_ID = 77
 
-    private lateinit var executer: Executor
-    private lateinit var notificationHelper: NotificationHelper
-    private val chats = Contact.CONTACTS.map { contact ->
-        contact.id to Chat(contact)
-    }.toMap()
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        notificationHelper = NotificationHelper(this)
-        notificationHelper.setUpNotificationChannels()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationHelper.setUpNotificationChannels(this)
+        }
 
 
         binding.send.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val chat = chats.getValue(2L)
-                notificationHelper.showNotification(chat, false)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationHelper.showNotification(this,R.string.channel_new_messages,R.string.channel_new_messages_description,NOTIFICATION_ID)
             }
 //           // val icon = Icon.createWithAdaptiveBitmapContentUri("cat.jpg")
 ////            val user = android.app.Person.Builder().setName(context.getString(R.string.sender_you)).build()

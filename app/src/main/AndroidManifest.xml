@@ -13,16 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatBubbleTask"
         tools:targetApi="31">
-        <activity
-            android:name=".BubbleActivity"
-            android:allowEmbedded="true"
-            android:documentLaunchMode="always"
-            android:exported="false"
-            android:resizeableActivity="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".MainActivity"
             android:allowEmbedded="true"
